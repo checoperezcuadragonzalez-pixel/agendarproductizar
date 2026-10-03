@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tu llamada está agendada · /productizar</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700;9..144,800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#000;--ink-soft:#0A0A0A;--white:#FAFAFA;--grey:#8A8A8A;--grey-2:#B8B8B8;
+  --accent:#FACC15;--gold-pale:#FFF3C4;--gold-mid:#E0A912;
+  --glass-fill:rgba(255,255,255,.06);--glass-faint:rgba(255,255,255,.035);
+  --glass-border:rgba(255,255,255,.10);--glass-border-lit:rgba(255,255,255,.22);
+  --glass-border-gold:rgba(250,204,21,.28);--glass-yellow:rgba(250,204,21,.10);
+  --gold-well:radial-gradient(circle at 50% 35%,#18140a 0%,#080808 40%,#000 75%);
+  --grad-gold:linear-gradient(135deg,#FFE9A3 0%,#FACC15 42%,#C98F0A 78%,#8A5A06 100%);
+  --grad-gold-text:linear-gradient(100deg,#FFF3C4 0%,#FACC15 55%,#E0A912 100%);
+  --glass-sheen:linear-gradient(115deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.02) 32%,rgba(255,255,255,0) 55%,rgba(255,255,255,.05) 100%);
+  --page-glow:radial-gradient(80% 55% at 76% 4%,rgba(250,204,21,.05),transparent 62%),radial-gradient(55% 40% at 12% 80%,rgba(255,255,255,.03),transparent 66%);
+  --glass-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 24px 60px rgba(0,0,0,.55);
+  --gold-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 14px 34px rgba(250,204,21,.20);
+  --serif:"Fraunces",Georgia,"Times New Roman",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+  --ease:cubic-bezier(.32,.72,0,1);
+  color-scheme:dark;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark}}
+:root[data-theme="dark"]{color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--black);background-image:var(--page-glow);background-attachment:fixed;color:var(--grey);font-family:var(--sans);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+.wrap{max-width:860px;margin:0 auto;padding:0 22px}
+
+/* nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;display:flex;justify-content:center;padding:14px 0 0}
+.nav-pill{display:flex;align-items:center;gap:16px;padding:8px 10px 8px 16px;border-radius:999px;background:rgba(10,10,10,.72);backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);border:1px solid var(--glass-border);box-shadow:inset 0 1px 0 rgba(255,255,255,.10),0 10px 30px rgba(0,0,0,.45)}
+.wordmark{display:flex;align-items:center;gap:1px;color:var(--white);font-family:var(--serif);font-weight:700;font-size:19px;letter-spacing:-.02em;text-decoration:none}
+.wordmark img{height:22px;width:auto}
+.progress{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey);padding:6px 12px;border-radius:999px;background:var(--glass-faint);border:1px solid var(--glass-border)}
+.dots{display:flex;gap:4px}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.14);transition:background .3s var(--ease)}
+.dots i.on{background:var(--accent)}
+
+/* type */
+.pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:500;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);padding:7px 13px;border-radius:999px;background:var(--glass-yellow);border:1px solid rgba(250,204,21,.18)}
+h1,h2,h3{font-family:var(--serif);color:var(--white);font-weight:800;margin:0;letter-spacing:-.03em;line-height:1.05}
+h1{font-size:clamp(40px,7vw,72px);margin-top:22px}
+h2{font-size:clamp(28px,4.4vw,42px);margin-top:16px}
+h3{font-size:21px;letter-spacing:-.02em;line-height:1.2}
+.lead{font-size:19px;line-height:1.55;max-width:52ch;margin:20px 0 0}
+p{margin:14px 0 0;max-width:60ch}
+strong{color:var(--white);font-weight:600}
+.gold-text{background:var(--grad-gold-text);-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* hero */
+.hero{padding:72px 0 40px}
+.hero-meta{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.meta{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);padding:8px 12px;border-radius:999px;border:1px solid var(--glass-border);background:var(--glass-faint)}
+
+/* steps */
+section{padding:44px 0}
+.card{position:relative;border-radius:24px;background:var(--glass-fill);background-image:var(--glass-sheen);border:1px solid var(--glass-border);box-shadow:var(--glass-shadow);padding:30px;overflow:hidden}
+.card.faint{background:var(--glass-faint)}
+.step-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.num{font-family:var(--serif);font-weight:800;font-size:15px;color:var(--grey);letter-spacing:-.01em}
+
+.video{margin-top:26px;border-radius:14px;overflow:hidden;border:1px solid var(--glass-border);background:var(--gold-well);position:relative;aspect-ratio:16/9}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.video-empty{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:20px}
+.play{width:64px;height:64px;border-radius:50%;border:1px solid var(--glass-border-lit);background:var(--glass-fill);display:grid;place-items:center}
+.play svg{width:22px;height:22px;margin-left:3px;color:var(--white)}
+.video-empty span{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+
+/* check */
+.check{margin-top:24px;display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none;width:fit-content;padding:12px 18px 12px 14px;border-radius:999px;border:1px solid var(--glass-border);background:var(--glass-faint);color:var(--white);font-weight:500;font-size:15px;transition:border-color .2s var(--ease),transform .2s var(--ease)}
+.check:hover{border-color:var(--glass-border-lit);transform:translateY(-1px)}
+.check input{position:absolute;opacity:0;pointer-events:none}
+.box{width:22px;height:22px;border-radius:7px;border:1.5px solid var(--glass-border-lit);display:grid;place-items:center;transition:all .2s var(--ease);flex:none}
+.box svg{width:14px;height:14px;opacity:0;color:#0A0A0A}
+.check input:checked + .box{background:var(--grad-gold);border-color:transparent;box-shadow:var(--gold-shadow)}
+.check input:checked + .box svg{opacity:1}
+.check input:focus-visible + .box{outline:2px solid var(--accent);outline-offset:3px}
+
+/* calendar steps */
+.substeps{display:grid;gap:12px;margin-top:22px;padding:0;list-style:none;counter-reset:s}
+.substeps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:start}
+.substeps li::before{content:counter(s,decimal-leading-zero);font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--grey);padding-top:4px}
+
+.mail{margin-top:26px;border-radius:14px;border:1px solid var(--glass-border);background:var(--ink-soft);overflow:hidden}
+.mail-top{display:flex;gap:6px;padding:12px 14px;border-bottom:1px solid var(--glass-border)}
+.mail-top i{width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.12)}
+.mail-body{padding:20px 20px 22px}
+.mail-from{font-size:13px;color:var(--grey)}
+.mail-subj{color:var(--white);font-weight:600;font-size:16px;margin-top:4px}
+.mail-inv{margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:14px;border-radius:12px;border:1px solid var(--glass-border);background:var(--glass-faint)}
+.mail-inv .q{font-size:13px;color:var(--grey-2);margin-right:6px}
+.rsvp{font-size:13px;font-weight:600;padding:7px 16px;border-radius:999px;border:1px solid var(--glass-border);color:var(--grey-2)}
+.rsvp.yes{position:relative;color:var(--white);border-color:var(--glass-border-gold);box-shadow:0 0 0 4px rgba(250,204,21,.10),0 0 24px rgba(250,204,21,.18)}
+.arrow{display:flex;align-items:center;gap:8px;margin-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+.note{margin-top:18px;font-size:14px;color:var(--grey);border-left:0;padding:12px 14px;border-radius:12px;background:var(--glass-faint);border:1px solid var(--glass-border)}
+
+/* prep list */
+.rules{list-style:none;margin:22px 0 0;padding:0;display:grid;gap:12px}
+.rules li{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start}
+.rules li::before{content:"";width:12px;height:2px;margin-top:12px;background:var(--grey)}
+.rules.yes li::before{background:var(--accent)}
+.rules li span{color:var(--grey-2)}
+
+/* two cols */
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:28px}
+.col-title{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey)}
+.filter{margin-top:22px;padding:18px 20px;border-radius:14px;border:1px solid var(--glass-border);background:var(--glass-faint);color:var(--grey-2)}
+.filter strong{display:block;margin-bottom:4px}
+
+/* phases */
+.phases{list-style:none;padding:0;margin:28px 0 0;display:grid;gap:10px}
+.phases li{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:baseline;padding:18px 22px;border-radius:18px;background:var(--glass-faint);border:1px solid var(--glass-border)}
+.phases .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);white-space:nowrap}
+.phases b{font-family:var(--serif);font-weight:700;color:var(--white);font-size:19px;letter-spacing:-.015em}
+.phases span{display:block;color:var(--grey);font-size:15px;margin-top:2px}
+
+/* proof */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:28px}
+.stat{border-radius:24px;padding:28px 26px;background:var(--glass-faint);border:1px solid var(--glass-border)}
+.stat.well{background:var(--gold-well);border-color:var(--glass-border-gold)}
+.stat .pair{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.stat .big{font-family:var(--serif);font-weight:800;font-size:clamp(40px,6vw,56px);letter-spacing:-.035em;line-height:1;color:var(--white)}
+.stat .sep{font-family:var(--serif);font-size:30px;color:var(--grey)}
+.stat .cap{margin-top:12px;font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--grey)}
+
+.cases{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:28px}
+.case{border-radius:24px;overflow:hidden;background:var(--glass-faint);border:1px solid var(--glass-border)}
+.case img{width:100%;height:auto}
+.case figcaption{padding:16px 18px;font-size:14px;color:var(--grey-2)}
+.case figcaption b{display:block;color:var(--white);font-weight:600}
+
+/* close */
+.close{text-align:center;padding:72px 0 96px}
+.close h2{margin-left:auto;margin-right:auto;max-width:18ch}
+.close p{margin-left:auto;margin-right:auto}
+.done{display:none;margin:26px auto 0;width:fit-content;padding:10px 18px;border-radius:999px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);background:var(--glass-yellow);border:1px solid rgba(250,204,21,.18)}
+.done.show{display:block}
+footer{border-top:1px solid var(--glass-border);padding:26px 0 36px;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#5a5a5a;text-align:center}
+
+@media (max-width:560px){
+  .card{padding:22px}
+  .hero{padding:52px 0 28px}
+  .lead{font-size:17px}
+  .phases li{grid-template-columns:1fr;gap:6px}
+  .progress .txt{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Progreso">
+  <div class="nav-pill">
+    <a class="wordmark" href="#top" aria-label="productizar"><img src="data:image/png;base64,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" alt="">productizar</a>
+    <div class="progress" aria-live="polite"><span class="dots"><i></i><i></i><i></i></span><span class="txt"><span id="count">0</span> de 3 listos</span></div>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+
+  <header class="hero">
+    <span class="pill">Reserva recibida · falta confirmar</span>
+    <h1>Tu llamada está agendada. Falta que la confirmes.</h1>
+    <p class="lead">Son tres pasos y toman menos de diez minutos. Sin ellos, la llamada se va en explicar qué hacemos. Con ellos, se va en revisar tu caso.</p>
+    <div class="hero-meta">
+      <span class="meta">Llamada de diagnóstico</span>
+      <span class="meta">30 minutos</span>
+      <span class="meta">Uno a uno</span>
+    </div>
+  </header>
+
+  <!-- PASO 01 -->
+  <section aria-labelledby="p1">
+    <div class="card">
+      <span class="pill">Paso 01 · mira el video</span>
+      <h2 id="p1">Mira esto antes de la llamada</h2>
+      <p>Qué es /productizar, qué pasa en la llamada y qué no pasa. Así llegas sabiendo a qué vienes, y los 30 minutos son para ti.</p>
+      <div class="video" id="video">
+        <div class="video-empty" id="videoEmpty">
+          <div class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 4.5v15l13-7.5z"/></svg></div>
+          <span>Video de bienvenida</span>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" data-step="0"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ya lo vi completo</label>
+    </div>
+  </section>
+
+  <!-- PASO 02 -->
+  <section aria-labelledby="p2">
+    <div class="card">
+      <span class="pill">Paso 02 · confirma la cita</span>
+      <h2 id="p2">Acepta la invitación en tu correo</h2>
+      <p>Una llamada que no está en tu calendario es una llamada que se olvida. Te llegó un correo con la invitación: confírmala ahora, no después.</p>
+      <ol class="substeps">
+        <li><span>Abre el correo de <strong>Cal.com</strong> que llegó al email con el que agendaste.</span></li>
+        <li><span>Da clic en <strong>Sí</strong> o en <strong>Añadir a Google Calendar</strong>. Si usas iPhone, abre el archivo .ics y dale en añadir.</span></li>
+        <li><span>Si no lo ves en tu bandeja principal, búscalo en <strong>spam o promociones</strong> y muévelo.</span></li>
+      </ol>
+
+      <!-- Reemplazable por una captura real del correo con flechas, como imagen en base64 -->
+      <div class="mail" aria-hidden="true">
+        <div class="mail-top"><i></i><i></i><i></i></div>
+        <div class="mail-body">
+          <div class="mail-from">Cal.com · para ti</div>
+          <div class="mail-subj">Invitación: Llamada de diagnóstico · /productizar</div>
+          <div class="mail-inv">
+            <span class="q">¿Asistirás?</span>
+            <span class="rsvp yes">Sí</span>
+            <span class="rsvp">Quizás</span>
+            <span class="rsvp">No</span>
+          </div>
+          <div class="arrow"><span>↑</span> Clic aquí</div>
+        </div>
+      </div>
+
+      <p class="note">Si no te llegó ningún correo en los próximos cinco minutos, revisa que el email que escribiste al agendar sea el correcto.</p>
+      <label class="check"><input type="checkbox" data-step="1"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Ya está en mi calendario</label>
+    </div>
+  </section>
+
+  <!-- PASO 03 -->
+  <section aria-labelledby="p3">
+    <div class="card">
+      <span class="pill">Paso 03 · llega con tus números</span>
+      <h2 id="p3">Ten esto a la mano</h2>
+      <p>No es para juzgarte. Es para que salgas con un diagnóstico de tu caso, no con teoría general.</p>
+      <ul class="rules yes">
+        <li><span><strong>Cuánto facturaste en los últimos 30 días.</strong> Aunque sea poco o irregular.</span></li>
+        <li><span><strong>Qué vendes hoy y a qué precio.</strong> Sesiones, asesorías, un curso que hiciste una vez.</span></li>
+        <li><span><strong>El link de tu canal o perfil principal.</strong></span></li>
+        <li><span><strong>Cuántas horas a la semana tienes para grabar.</strong> Las reales, no las ideales.</span></li>
+      </ul>
+      <label class="check"><input type="checkbox" data-step="2"><span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Lo tengo listo</label>
+    </div>
+  </section>
+
+  <!-- QUÉ PASA EN LA LLAMADA -->
+  <section aria-labelledby="q">
+    <span class="pill">La llamada</span>
+    <h2 id="q">Una llamada de diagnóstico. No una presentación.</h2>
+    <div class="cols">
+      <div class="card faint">
+        <div class="col-title">Qué sí pasa</div>
+        <ul class="rules yes">
+          <li><span>Revisamos qué sabes, a quién ya le vendes y cuánto facturas.</span></li>
+          <li><span>Ubicamos dónde está el hoyo entre tu audiencia y tu facturación.</span></li>
+          <li><span>Si encaja, sales sabiendo cómo se trabaja, cuánto dura y cuánto cuesta.</span></li>
+        </ul>
+      </div>
+      <div class="card faint">
+        <div class="col-title">Qué no pasa</div>
+        <ul class="rules">
+          <li><span>No es una clase de contenido ni de cómo crecer.</span></li>
+          <li><span>No grabamos, no editamos y no manejamos tus redes.</span></li>
+          <li><span>No te vamos a pedir que armes un producto desde cero.</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="filter"><strong>Si todavía no vendes nada ni te escucha nadie, cancela y libera el espacio.</strong>Esto es para quien ya sabe algo real, ya tiene gente que lo escucha y todavía no tiene nada que se compre.</div>
+  </section>
+
+  <!-- MÉTODO -->
+  <section aria-labelledby="m">
+    <span class="pill">El método</span>
+    <h2 id="m">No creas nada nuevo. Sacas lo que ya haces.</h2>
+    <p>Se llama Extracción de Producto. El producto que vas a vender ya existe: lo entregas a mano cada vez y nunca lo has escrito. Son cinco fases, en este orden.</p>
+    <ol class="phases">
+      <li><span class="tag">Fase 01</span><div><b>Avatar y oferta</b><span>A quién y qué resultado exacto.</span></div></li>
+      <li><span class="tag">Fase 02</span><div><b>Identidad de marca</b><span>Las cuatro piezas que sí salen en cámara.</span></div></li>
+      <li><span class="tag">Fase 03</span><div><b>El motor</b><span>Contenido donde cada pieza tiene un trabajo.</span></div></li>
+      <li><span class="tag">Fase 04</span><div><b>Producto</b><span>Lo que ya haces, cerrado con nombre, fases y precio.</span></div></li>
+      <li><span class="tag">Fase 05</span><div><b>Lanzamiento</b><span>Ventana, fecha y deadline. Estructura, no suerte.</span></div></li>
+    </ol>
+  </section>
+
+  <!-- PRUEBA -->
+  <section aria-labelledby="pr">
+    <span class="pill">Por qué este método</span>
+    <h2 id="pr">El problema nunca fue el alcance.</h2>
+    <div class="stats">
+      <div class="stat well">
+        <div class="pair"><span class="big">638K</span><span class="sep">/</span><span class="big gold-text">3</span></div>
+        <div class="cap">Vistas · ventas</div>
+      </div>
+      <div class="stat">
+        <div class="pair"><span class="big">28K</span><span class="sep">/</span><span class="big">$2,000</span></div>
+        <div class="cap">Vistas · facturado</div>
+      </div>
+    </div>
+    <p>Un video de 638 mil vistas dejó tres ventas. Uno de 28 mil dejó $2,000. Más gente no arregla nada si en medio no hay algo que comprar.</p>
+
+    <!-- Casos: se muestran solo si hay capturas en CASOS (abajo, en el script) -->
+    <div id="casesWrap" hidden>
+      <h3 style="margin-top:40px">Lo que dicen quienes ya pasaron por aquí</h3>
+      <div class="cases" id="cases"></div>
+    </div>
+  </section>
+
+  <!-- CIERRE -->
+  <section class="close" aria-labelledby="c">
+    <span class="pill">Antes de conectarte</span>
+    <h2 id="c">Nos vemos en la llamada.</h2>
+    <p>Conéctate desde computadora, con cámara prendida y en un lugar sin ruido. Llega cinco minutos antes.</p>
+    <div class="done" id="done">Todo listo · tu lugar está confirmado</div>
+  </section>
+
+</main>
+
+<footer>productizar.co · Llamada de diagnóstico</footer>
+
+<script>
+/* ============ EDITA AQUÍ ============ */
+// 1) Pega el link de "Embed" de tu Loom (el src del iframe). Ej: https://www.loom.com/embed/XXXXXXXX
+//    También sirve YouTube: https://www.youtube.com/embed/XXXXXXXX
+const VIDEO_EMBED = "https://player.vimeo.com/video/1229757548?title=0&byline=0&portrait=0&dnt=1";
+
+// 2) Casos. Cada imagen va como data URI (la página no carga imágenes externas).
+//    { img: "data:image/jpeg;base64,...", nombre: "Nombre", texto: "Qué logró, con número" }
+const CASOS = [];
+/* ==================================== */
+
+(function(){
+  // Video
+  if (VIDEO_EMBED) {
+    const f = document.createElement("iframe");
+    f.src = VIDEO_EMBED;
+    f.allow = "autoplay; fullscreen; picture-in-picture";
+    f.allowFullscreen = true;
+    f.title = "Video de bienvenida";
+    document.getElementById("videoEmpty").remove();
+    document.getElementById("video").appendChild(f);
+  }
+
+  // Casos
+  if (CASOS.length) {
+    const wrap = document.getElementById("casesWrap"), grid = document.getElementById("cases");
+    CASOS.forEach(c => {
+      const fig = document.createElement("figure"); fig.className = "case"; fig.style.margin = "0";
+      const img = document.createElement("img"); img.src = c.img; img.alt = c.nombre || "Caso"; img.loading = "lazy";
+      const cap = document.createElement("figcaption");
+      const b = document.createElement("b"); b.textContent = c.nombre || "";
+      cap.appendChild(b); cap.appendChild(document.createTextNode(c.texto || ""));
+      fig.appendChild(img); fig.appendChild(cap); grid.appendChild(fig);
+    });
+    wrap.hidden = false;
+  }
+
+  // Checklist
+  const KEY = "precall-productizar-v1";
+  const boxes = [...document.querySelectorAll("input[data-step]")];
+  const dots = [...document.querySelectorAll(".dots i")];
+  let state = [false,false,false];
+  try { const s = JSON.parse(localStorage.getItem(KEY)); if (Array.isArray(s) && s.length === 3) state = s.map(Boolean); } catch(e){}
+  function render(){
+    boxes.forEach((b,i) => b.checked = state[i]);
+    dots.forEach((d,i) => d.classList.toggle("on", state[i]));
+    const n = state.filter(Boolean).length;
+    document.getElementById("count").textContent = n;
+    document.getElementById("done").classList.toggle("show", n === 3);
+  }
+  boxes.forEach(b => b.addEventListener("change", () => {
+    state[+b.dataset.step] = b.checked;
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+    render();
+  }));
+  render();
+})();
+</script>
+</body>
+</html>
